@@ -30,6 +30,7 @@ jobs:
         run: |
               git clone --depth 1 https://github.com/ring1012/armbian-build.git
               export ARMBIAN_NO_DIALOG=1
+              export DEBIAN_FRONTEND=noninteractive
               cd armbian-build
 
       - name: Configure board settings

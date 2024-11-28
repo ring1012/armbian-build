@@ -29,22 +29,19 @@ jobs:
       - name: Clone Armbian repository
         run: |
               git clone --depth 1 https://github.com/ring1012/armbian-build.git
-              export ARMBIAN_NO_DIALOG=1
-              export DEBIAN_FRONTEND=noninteractive
               cd armbian-build
+ 
 
-      - name: Configure board settings
+
+      - name: Build Armbian for your board
         run: |
-        
           # 设置你的板子名、构建目标等
           export BOARD="h96-tvbox-3566"
           export RELEASE="bookworm"
           export BRANCH="current"  # 或者是其他分支
+          export ARMBIAN_NO_DIALOG=1
+          export DEBIAN_FRONTEND=noninteractive
           # 如果需要，可以根据你的设置修改 Armbian 的配置文件
-
-      - name: Build Armbian for your board
-        run: |
-     
           # 运行构建命令，替换为适合你板子的命令
           ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BRANCH=$BRANCH BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_CONFIGURE=no EXPERT="yes"
           

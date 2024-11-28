@@ -42,6 +42,7 @@ jobs:
           export ARMBIAN_NO_DIALOG=1
           export DEBIAN_FRONTEND=noninteractive
           export UBOOT_PATCHES=0
+          export USE_U_BOOT_PATCHES=0
           # 如果需要，可以根据你的设置修改 Armbian 的配置文件
           # 运行构建命令，替换为适合你板子的命令
           ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BRANCH=$BRANCH BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_CONFIGURE=no EXPERT="yes"

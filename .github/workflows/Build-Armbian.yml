@@ -28,8 +28,8 @@ jobs:
 
       - name: Clone Armbian repository
         run: |
-          git clone https://github.com/ring1012/armbian-build.git
-          cd armbian-build
+              git clone --depth 1 https://github.com/ring1012/armbian-build.git
+              cd armbian-build
 
       - name: Configure board settings
         run: |
@@ -44,7 +44,7 @@ jobs:
         run: |
      
           # 运行构建命令，替换为适合你板子的命令
-          ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BRANCH=$BRANCH BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_CONFIGURE=no
+          ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BRANCH=$BRANCH BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_CONFIGURE=no EXPERT="yes"
           
       - name: Upload build artifact
         uses: actions/upload-artifact@v3

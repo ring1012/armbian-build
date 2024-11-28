@@ -18,6 +18,7 @@ function post_family_config__h96_max_use_mainline_uboot() {
 	declare -g BOOTBRANCH="branch:next-dev"
 	#declare -g BOOTPATCHDIR="v2024.07/board_${BOARD}"
     declare -g USE_U_BOOT_PATCHES="no"
+    declare -g UBOOT_PATCH_DIR=""
 	# Don't set BOOTDIR, allow shared U-Boot source directory for disk space efficiency
 
 	declare -g UBOOT_TARGET_MAP="BL31=${RKBIN_DIR}/${BL31_BLOB} ROCKCHIP_TPL=${RKBIN_DIR}/${DDR_BLOB};;u-boot-rockchip.bin"

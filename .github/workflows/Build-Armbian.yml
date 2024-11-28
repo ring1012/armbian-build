@@ -1,12 +1,53 @@
-name: "Build Armbian"
+name: Build Armbian Board
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main  # 触发构建的分支
+  pull_request:
+    branches:
+      - main  # 在 PR 时触发构建
+  workflow_dispatch:  # 允许手动触发构建
+
 jobs:
-  build-armbian:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest  # 使用 GitHub 提供的 Ubuntu 环境
+
     steps:
-      - uses: armbian/build@main
+      - name: Checkout code
+        uses: actions/checkout@v3  # 检出代码
+
+      - name: Set up environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential git curl python3 python3-pip
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y bc gawk wget git lzop unzip
+
+      - name: Clone Armbian repository
+        run: |
+          git clone https://github.com/ring1012/armbian-build.git
+          cd armbian-build
+
+      - name: Configure board settings
+        run: |
+        
+          # 设置你的板子名、构建目标等
+          export BOARD="h96-tvbox-3566"
+          export RELEASE="bookworm"
+          export BRANCH="current"  # 或者是其他分支
+          # 如果需要，可以根据你的设置修改 Armbian 的配置文件
+
+      - name: Build Armbian for your board
+        run: |
+     
+          # 运行构建命令，替换为适合你板子的命令
+          ./compile.sh BOARD=$BOARD RELEASE=$RELEASE BRANCH=$BRANCH BUILD_MINIMAL=yes BUILD_DESKTOP=no KERNEL_CONFIGURE=no
+          
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
         with:
-          armbian_release:   "bookworm"                        # userspace
-          armbian_target:    "build"                        # build=image, kernel=kernel
-          armbian_board:     "h96-tvbox-3566"                   # build target
+          name: armbian-build
+          path: build/output/*.img  # 上传构建的镜像文件

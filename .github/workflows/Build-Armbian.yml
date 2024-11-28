@@ -51,4 +51,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: armbian-build
-          path: armbian-build/output/*.img  # 上传构建的镜像文件
+          path: output/*.img  # 上传构建的镜像文件
